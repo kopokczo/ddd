@@ -1,3 +1,3 @@
-1create li with delete button
-2add checkbox to li (jak zaznaczysz to przekleslone)
-3add 2 arrow buttons (gora dol)
+1. create li with delete button
+2. add checkbox to li (jak zaznaczysz to przekleslone)
+3. add 2 arrow buttons (gora dol)
