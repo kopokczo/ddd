@@ -1,19 +1,22 @@
-const addTaskButton = document.getElementById("btn");
+const addTaskButton = document.getElementById("button");
 const taskTextInput = document.getElementById("textbox");
 const tasksList = document.getElementById("table");
-const deleteLastTaskButton = document.getElementById('delete-button');
+const deleteLastTaskButton = document.getElementById("delete-button");
 
-const createLiElementWithDeleteButton = () => {
-  return document.createElement('li');
-}
+const onCreateElementClick = () => {
+  const createdElement = createLiElementWithDeleteButton();
 
-const appendChildToList = (list, element) => {
-  list.appendChild(element);
-}
-
-const addTextToElement = (element, text) => {
-  element.textContent = text;
-}
+  addTextToElement(createdElement, taskTextInput.value);
+  addCheckboxToElement(createdElement);
+  addDeleteButtonToElement(createdElement);
+  appendChildToList(tasksList, createdElement);
+  //const isChecked = () => {
+  //  while(input.checked) {
+  //    input.style = "text-decoration: line-through";
+  //  }
+  //};
+  //isChecked();
+};
 
 const onRemoveLastElement = () => {
   const selectedElements = tasksList.querySelectorAll("li");
@@ -21,14 +24,38 @@ const onRemoveLastElement = () => {
   const lastElement = selectedElements[lastElementIndex];
 
   tasksList.removeChild(lastElement);
-} 
+};
 
-const onCreateElementClick = () => {
-  const createdElement = createLiElementWithDeleteButton();
+const createLiElementWithDeleteButton = () => {
+  const li = document.createElement("li");
+  li.style = "list-style-type: none";
+  return li;
+};
+///tu mozna jak wczesniej tylko poprostu w css zmienic
 
-  addTextToElement(createdElement, taskTextInput.value);
-  appendChildToList(tasksList, createdElement);      
-}
+const appendChildToList = (list, element) => {
+  list.appendChild(element);
+};
+
+const addTextToElement = (element, text) => {
+  element.textContent = text;
+};
+
+const addCheckboxToElement = (element) => {
+  const checkbox = document.createElement("input");
+  checkbox.type = "checkbox";
+  element.appendChild(checkbox);
+};
+
+const addDeleteButtonToElement = (element) => {
+  const deleteButton = document.createElement("button");
+  deleteButton.textContent = "Delete";
+  deleteButton.style = "background-color: red";
+  deleteButton.addEventListener("click", () => {
+    tasksList.removeChild(element);
+  });
+  element.appendChild(deleteButton);
+};
 
 addTaskButton.addEventListener('click', onCreateElementClick);
 deleteLastTaskButton.addEventListener('click', onRemoveLastElement);
